@@ -9,11 +9,6 @@
   </head>
   <body>
     <script>
-      const model = tf.sequential()
-      model.add(tf.layers.dense({ units: 1, inputShape: [2] }))
-
-      model.compile({ loss: 'meanSquaredError', optimizer: 'adam' })
-
       const xs = tf.tensor2d(
         [
           [0, 0],
@@ -23,7 +18,25 @@
         ],
         [4, 2]
       )
+
+      const ys = tf.tensor2d([0, 1, 1, 0], [4, 1])
+
+      function createModel() {
+        const model = tf.sequential()
+        model.add(
+          tf.layers.dense({ units: 1, inputShape: 2, activation: 'tanh' })
+        )
+        model.add(tf.layers.dense({ units: 1, activation: 'sigmoid' }))
+        model.compile({
+          loss: 'binaryCrossentropy',
+          optimizer: 'adam',
+          lr: 0.1
+        })
+        return model
+      }
+
       const fitParam = {
+        batchSize: 1,
         epochs: 5000, // tensorflow 에게 연산 5천번 시키는 문구
         callbacks: {
           onEpochEnd: function (epoch, logs) {
@@ -31,10 +44,13 @@
           }
         }
       }
-      const ys = tf.tensor2d([0, 1, 1, 0], [4, 1])
-      model.fit(xs, ys, fitParam).then(() => {
-        model.predict(tf.tensor2d([[0, 1]], [1, 2])).print()
-      })
+
+      async function createNpredict() {
+        model = createModel()
+        await model.fit(xs, ys, fitParam)
+        model.predict(tf.tensor2d([[1, 1]], [1, 2])).print()
+      }
+      createNpredict()
     </script>
   </body>
 </html>
