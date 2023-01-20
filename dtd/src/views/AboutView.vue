@@ -1,6 +1,8 @@
 <template>
-  <div>링크 어케 가져옴?</div>
+  <div>일단 링크 가져와보기제발</div>
 </template>
+
+<script></script>
 
 <script setup>
 const videoElement = document.createElement('video')
@@ -27,5 +29,4 @@ button.addEventListener('click', () => {
   main()
 })
 </script>
-
 <style></style>
