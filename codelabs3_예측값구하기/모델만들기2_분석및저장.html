@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tensorflowjs</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+  </head>
+  <body>
+    <script>
+      /* 1. 전이학습 */
+      // const tem = [29,30,31,32]
+      // const xt = tf.tensor(tem)
+
+      /* 2. 모델분석 */
+      const temp = [16] // 예측값 구하기
+      const xt = tf.tensor(temp)
+
+      tf.loadLayersModel('localstorage://my-model').then((model) => {
+        console.log('이전모델 로드됨')
+        let newResult = model.predict(xt)
+        newResult.print()
+        const weights = model.getWeights()
+        console.log(weights)
+        let rel = 0 // 선언 안하면 치명적인 에러 발생
+        let bia = 0 // 외부에서 변수를 선언하고 가중치와 편향에 강제로 집어넣음 // 들어가면 못빼니까?
+        const weight = weights[0].array().then((array) => (rel = array[0][0])) // 가중치
+        const bias = weights[1].array().then((array) => (bia = array[0])) // 편향
+        console.log(weight)
+        console.log(bias)
+      })
+
+      /* 질문 */
+      //   let tem = [10, 11, 12, 13, 14]
+      //   let sel = [23, 25, 27, 29, 31]
+      //    tem 16도일때의 에측값 = 34.9922218
+      //    하지만 실제론 35가 나와야하는데 어디가 잘못된건가요?
+      //    아니면 35에 굉장히 가깝게 나왔으니까 문제 없는건가요?
+    </script>
+  </body>
+</html>
