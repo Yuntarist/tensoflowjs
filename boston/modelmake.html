@@ -610,23 +610,8 @@
           B[i],
           LSTAT[i]
         ]
-        // console.log(tem)
+        console.log(tem)
 
-        // let tem = [
-        //   CRIM,
-        //   ZN,
-        //   INDUS,
-        //   CHAS,
-        //   NOX,
-        //   RM,
-        //   AGE,
-        //   DIS,
-        //   RAD,
-        //   TAX,
-        //   PTRATIO,
-        //   B,
-        //   LSTAT
-        // ]
         let sel = [
           24, 21.6, 34.7, 33.4, 36.2, 28.7, 22.9, 27.1, 16.5, 18.9, 15, 18.9,
           21.7, 20.4, 18.2, 19.9, 23.1, 17.5, 20.2, 18.2, 13.6, 19.6, 15.2,
@@ -677,7 +662,7 @@
 
         /* 2. 모델의 모양을 만들기 */
         let X = tf.input({ shape: [13] }) //값 13개 들어옴
-        let Y = tf.layers.dense({ units: 13 }).apply(X) // apply를 통해 연결
+        let Y = tf.layers.dense({ units: 1 }).apply(X) // apply를 통해 연결
         let model = tf.model({ inputs: X, outputs: Y }) // 인아웃풋 지정
         let compileParam = {
           optimizer: tf.train.adam(),
@@ -694,7 +679,7 @@
             }
           }
         }
-        const my = tf.tensor([507])
+        const my = tf.tensor([])
         model.fit(xt, yt, fitParm).then(function (r) {
           let result = model.predict(xt)
           result.print()
