@@ -610,7 +610,7 @@
           B[i],
           LSTAT[i]
         ]
-        console.log(tem)
+        // console.log(tem)
 
         // let tem = [
         //   CRIM,
@@ -676,8 +676,8 @@
         let yt = tf.tensor(sel) // 텐서로 변환
 
         /* 2. 모델의 모양을 만들기 */
-        let X = tf.input({ shape: [13] }) //값 하나 들어옴
-        let Y = tf.layers.dense({ units: 1 }).apply(X) // apply를 통해 연결
+        let X = tf.input({ shape: [13] }) //값 13개 들어옴
+        let Y = tf.layers.dense({ units: 13 }).apply(X) // apply를 통해 연결
         let model = tf.model({ inputs: X, outputs: Y }) // 인아웃풋 지정
         let compileParam = {
           optimizer: tf.train.adam(),
@@ -694,14 +694,14 @@
             }
           }
         }
-        // const my = tf.tensor([13])
-        // model.fit(xt, yt, fitParm).then(function (r) {
-        //   let result = model.predict(xt)
-        //   result.print()
-        //   // model.save("downloads://my-model");
-        //   model.save('localstorage://my-model')
-        //   console.log('모델 저장됨')
-        // })
+        const my = tf.tensor([507])
+        model.fit(xt, yt, fitParm).then(function (r) {
+          let result = model.predict(xt)
+          result.print()
+          // model.save("downloads://my-model");
+          model.save('localstorage://my-model')
+          console.log('모델 저장됨')
+        })
       }
     </script>
   </body>
