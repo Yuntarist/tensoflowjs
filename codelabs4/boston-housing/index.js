@@ -1,20 +1,3 @@
-/**
- * @license
- * Copyright 2018 Google LLC. All Rights Reserved.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * =============================================================================
- */
-
 import { BostonHousingDataset, featureDescriptions } from './data.js'
 import * as normalization from './normalization.js'
 import * as ui from './ui.js'
@@ -31,12 +14,13 @@ const tensors = {}
 export function arraysToTensors() {
   tensors.rawTrainFeatures = tf.tensor2d(bostonData.trainFeatures)
   tensors.trainTarget = tf.tensor2d(bostonData.trainTarget)
-  tensors.rawTestFeatures = tf.tensor2d(bostonData.TestFeatures)
+  tensors.rawTestFeatures = tf.tensor2d(bostonData.testFeatures)
   tensors.testTarget = tf.tensor2d(bostonData.testTarget)
   /* 평균과 표준 편차로 정규화 내용 추가 */
   let { dataMean, dataStd } = normalization.determineMeanAndStddev(
     tensors.rawTrainFeatures
   )
+
   tensors.trainFeatures = normalization.normalizeTensor(
     tensors.rawTrainFeatures,
     dataMean,
@@ -55,6 +39,7 @@ export function linearRegressionModel() {
   model.summary()
   return model
 }
+
 /* 50개의 유닛과 시그모이드 함수를 가진 1개의 은닉층이 있는 다층 퍼셉트론 회귀 모델을 만들어 반환합니다. */
 export function multiLayerPerceptronRegressionModel1Hidden() {
   const model = tf.sequential()
@@ -63,14 +48,16 @@ export function multiLayerPerceptronRegressionModel1Hidden() {
       inputShape: [bostonData.numFeatures],
       units: 50,
       activation: 'sigmoid',
-      kernelInitializers: 'leCunNormal' // 가중치 초기화
+      kernelInitializer: 'leCunNormal' // 가중치 초기화
     })
   )
   model.add(tf.layers.dense({ units: 1 }))
   model.summary()
   return model
 }
+
 /* 50개의 유닛과 시그모이드 함수를 가진 2개의 은닉층이 있는 다층 퍼셉트론 회귀 모델을 만들어 반환합니다. */
+
 export function multiLayerPerceptronRegressionModel2Hidden() {
   const model = tf.sequential()
   model.add(
@@ -78,20 +65,21 @@ export function multiLayerPerceptronRegressionModel2Hidden() {
       inputShape: [bostonData.numFeatures],
       units: 50,
       activation: 'sigmoid',
-      kernelInitializers: 'leCunNormal' // 가중치 초기화
+      kernelInitializer: 'leCunNormal' // 가중치 초기화
     })
   )
   model.add(
     tf.layers.dense({
       units: 50,
       activation: 'sigmoid',
-      kernelInitializers: 'leCunNormal' // 가중치 초기화
+      kernelInitializer: 'leCunNormal' // 가중치 초기화
     })
   )
   model.add(tf.layers.dense({ units: 1 }))
   model.summary()
   return model
 }
+
 /**
  * 50개의 유닛을 가진 2개의 은닉층이 있는 다층 퍼셉트론 회귀 모델을 만들어 반환합니다.
  * (시그모이드 활성화 함수 사용하지 않음)
