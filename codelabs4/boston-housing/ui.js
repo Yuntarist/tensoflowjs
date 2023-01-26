@@ -38,7 +38,7 @@ export function updateModelStatus(message, modelName) {
   statElement.innerText = message
 }
 
-const NUM_TOP_WEIGHTS_TO_DISPLAY = 12
+const NUM_TOP_WEIGHTS_TO_DISPLAY = 13
 /**
  * 간단한 선형 모델에서 학습된 가중치에 관한 정보를 업데이트합니다.
  *
