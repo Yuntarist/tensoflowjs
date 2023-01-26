@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tensorflowjs</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  </head>
+  <body>
+    <input type="file" name="" id="dtd" onchange="readExcel()" /><button>
+      분석시작
+    </button>
+    <script>
+      let house = [],
+        medv = [] // 가격
+      // 파일선택 버튼을 눌러 변화(onchange)가 생기면 readExcel함수를 실행한다.
+      const readExcel = () => {
+        let input = this.event.target
+        let reader = new FileReader()
+        reader.onload = function () {
+          let data = reader.result
+          let workbook = XLSX.read(data, { type: 'binary' })
+          const x = workbook.Sheets.Data
+
+          for (let j = 2; j < 508; j++) {
+            // 엑셀 세로로 2줄부터 507줄까지
+            let line = [] // x에 대한 값
+            line2 = [] // y에 대한 값
+            for (let i = 65; i < 78; i++) {
+              // 엑셀 가로 A~M 까지 65~78은 아스키코드로 변환될것임.
+              let str = String.fromCharCode(i) + j
+              line.push(x[str].v)
+            }
+            line2.push(x['N' + j].v)
+            house.push(line)
+            medv.push(line2)
+          }
+          console.log(house)
+          console.log(medv)
+        }
+        reader.readAsBinaryString(input.files[0])
+
+        /* 위에서 나온 것들 텐서로 변환 */
+        const dtd = document.getElementById('dtd')
+        dtd.addEventListener('click', () => {
+          let xt = tf.tensor(house) // 텐서로 변환
+          let yt = tf.tensor(medv) // 텐서로 변환
+
+          /* 2. 모델의 모양을 만들기 */
+
+          let X = tf.input({ shape: [1] }) //값 하나 들어옴
+          let Y = tf.layers.dense({ units: 1 }).apply(X) // apply를 통해 연결
+          let model = tf.model({ inputs: X, outputs: Y }) // 인아웃풋 지정
+          let compileParam = {
+            optimizer: tf.train.adam(),
+            loss: tf.losses.meanSquaredError
+          } // 최적화의 loss 측정방법종류
+          model.compile(compileParam) // 컴파일
+
+          /* 3. 데이터로 학습을 시킴 */
+          let fitParm = {
+            epochs: 5000, // 연산 5천번
+            callbacks: {
+              onEpochEnd: function (epoch, logs) {
+                console.log(
+                  'epoch:',
+                  epoch,
+                  logs,
+                  'RMSE=>',
+                  Math.sqrt(logs.loss)
+                )
+              }
+            }
+          }
+          // const my = tf.tensor([20])
+          model.fit(xt, yt, fitParm).then(function (r) {
+            let result = model.predict(xt)
+            result.print()
+            // model.save("downloads://my-model");
+            model.save('localstorage://my-model')
+            console.log('모델 저장됨')
+          })
+        })
+      }
+    </script>
+  </body>
+</html>
