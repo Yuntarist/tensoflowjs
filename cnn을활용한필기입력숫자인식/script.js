@@ -147,14 +147,15 @@ function doPrediction(model, data, testDataSize = 500) {
   testxs.dispose()
   return [preds, labels]
 }
-await showAccuracy(model, data)
-await showConfusion(model, data)
+
 async function showAccuracy(model, data) {
   const [preds, labels] = doPrediction(model, data)
   const classAccuracy = await tfvis.metrics.perClassAccuracy(labels, preds)
   const container = { name: 'Accuracy', tab: 'Evaluation' }
   tfvis.show.perClassAccuracy(container, classAccuracy, classNames)
   labels.dispose()
+  await showAccuracy(model, data)
+  await showConfusion(model, data)
 }
 async function showConfusion(model, data) {
   const [preds, labels] = doPrediction(model, data)
