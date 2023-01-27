@@ -34,7 +34,7 @@
           }
         }
       }
-      const my = tf.tensor([16])
+      const my = tf.tensor([16]) // 내가 구하고자 하는 회차 []
       model.fit(xt, yt, fitParm).then(function (r) {
         let result = model.predict(xt)
         result.print()
