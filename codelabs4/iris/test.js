@@ -1090,7 +1090,7 @@ for (let i = 0; i < species.length; i++) {
   ]
   console.log(iris)
 }
+export default iris
 const iris = [sepalLength, sepalWidth, petalLength, petalWidth, species]
 
-for (let i in iris) {
-}
+// console.log(iris)
