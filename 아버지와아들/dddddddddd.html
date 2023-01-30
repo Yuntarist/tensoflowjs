@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tensorflowjs</title>
+    <title>dd</title>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
     <!--TensorFlow-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -27,6 +27,12 @@
       // 아버지와 아들 빈 배열 선언
       let father = [],
         son = []
+      const labels = []
+      const loss = []
+      let arr = []
+      for (let i = 0; i < 200; i++) {
+        arr.push(i)
+      }
       // excel.js 사용
       const readExcel = () => {
         let input = this.event.target
@@ -55,23 +61,22 @@
         let xt = tf.tensor(father)
         let yt = tf.tensor(son)
         let X = tf.input({ shape: [1] })
-        let Y = tf.layers.dense({ units: 1 }).apply(X)
+        console.log(arr)
+        let Y = tf.layers.dense({ units: 200 }).apply(X)
         let model = tf.model({ inputs: X, outputs: Y })
-
         let comileParam = {
           optimizer: tf.train.adam(),
           loss: tf.losses.meanSquaredError
         }
         model.compile(comileParam)
         model.summary()
-        const labels = []
-        const loss = []
+
         const fitParm = {
           epochs: 200,
           callbacks: {
             onEpochEnd: function (epoch, logs) {
               console.log('epoch', epoch, logs, 'RMSE=>', Math.sqrt(logs.loss))
-              /* 차트 chart.js */
+              /* 차트 */
               labels.push(epoch)
               console.log(labels)
               loss.push(logs.loss)
@@ -85,7 +90,7 @@
                   datasets: [
                     {
                       //데이터
-                      label: 'ㅇㅅㅇ', //차트 제목
+                      label: 'test1', //차트 제목
                       fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
                       data: loss, //x축 label에 대응되는 데이터 값
                       backgroundColor: [
