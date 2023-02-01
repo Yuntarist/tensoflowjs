@@ -117,8 +117,11 @@
         }
         const my = tf.tensor([kv])
         model.fit(xt, yt, fitParm).then((_) => {
-          let result = model.predict(my)
-          result.print()
+          ;(async function () {
+            let result = model.predict(my)
+            const real_result = await result.arraySync()
+            son_key.textContent = `아들의 예상키는 ${real_result}입니다`
+          })()
         })
       }
     </script>

@@ -29,10 +29,10 @@
         son = []
       const labels = []
       const loss = []
-      let arr = []
-      for (let i = 0; i < 200; i++) {
-        arr.push(i)
-      }
+      // let arr = []
+      // for (let i = 0; i < 200; i++) {
+      //   arr.push(i)
+      // }
       // excel.js 사용
       const readExcel = () => {
         let input = this.event.target
@@ -61,9 +61,15 @@
         let xt = tf.tensor(father)
         let yt = tf.tensor(son)
         let X = tf.input({ shape: [1] })
-        console.log(arr)
-        let Y = tf.layers.dense({ units: 200 }).apply(X)
-        let model = tf.model({ inputs: X, outputs: Y })
+
+        // activation: 'relu' dense 4개 추가
+        let Y = tf.layers.dense({ units: 50, activation: 'relu' }).apply(X)
+        let A = tf.layers.dense({ units: 50, activation: 'relu' }).apply(Y)
+        // let B = tf.layers.dense({ units: 50, activation: 'relu' }).apply(A)
+        // let C = tf.layers.dense({ units: 50, activation: 'relu' }).apply(B)
+        let D = tf.layers.dense({ units: 1 }).apply(A)
+
+        let model = tf.model({ inputs: X, outputs: D })
         let comileParam = {
           optimizer: tf.train.adam(),
           loss: tf.losses.meanSquaredError
@@ -72,15 +78,15 @@
         model.summary()
 
         const fitParm = {
-          epochs: 200,
+          epochs: 100,
           callbacks: {
             onEpochEnd: function (epoch, logs) {
               console.log('epoch', epoch, logs, 'RMSE=>', Math.sqrt(logs.loss))
               /* 차트 */
               labels.push(epoch)
-              console.log(labels)
+              // console.log(labels)
               loss.push(logs.loss)
-              console.log(loss)
+              // console.log(loss)
               let context = document.getElementById('myChart').getContext('2d')
               let myChart = new Chart(context, {
                 type: 'line', // 차트의 형태
