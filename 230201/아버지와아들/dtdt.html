@@ -127,3 +127,13 @@
     </script>
   </body>
 </html>
+const my = tf.tensor([kv])
+      model.fit(xt, yt, fitParm).then((_) => {
+        ;(async function () {
+          let result = model.predict(my)
+          const real_result = await result.arraySync() // 텐서를 다시 배열로 만듬
+          son_key.textContent = `아들의 예상키는 ${real_result}cm입니다.`
+        })()
+      })
+    }
+  }
