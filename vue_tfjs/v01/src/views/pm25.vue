@@ -30,7 +30,7 @@ export default {
       fetch(surl)
         .then((res) => res.json())
         .then((body) => {
-          const _ = body.getAirQualityInfoClassifiedByStation.body.items.item[0]
+          const _ = body.getAirQualityInfoClassifiedByStation.body.item
           const str = `부산의 초미세먼지: ${_.pm25}, 미세먼지:${_.pm10}, 일산화탄소: ${_.co}`
           console.log(str)
           this.pm25 = str
