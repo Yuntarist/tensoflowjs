@@ -1,12 +1,12 @@
 <template>
   <nav>
-    <router-link to="/">[일반 API]환율</router-link> |
-    <router-link to="/">더미</router-link>
-    <router-link to="/">더미</router-link>
-    <router-link to="/">더미</router-link>
-    <router-link to="/">더미</router-link>
-    <router-link to="/">더미</router-link>
-    <router-link to="/">더미</router-link>
+    <router-link to="/">[일반 API]환율 </router-link> |
+    <router-link to="/pm25">[공공 API] 공기질 데이터</router-link> |
+    <router-link to="/corona">[공공 API] 코로나</router-link> |
+    <router-link to="/papago">[기업 API] 파파고 번역기</router-link> |
+    <router-link to="/">더미</router-link> |
+    <router-link to="/">더미</router-link> |
+    <router-link to="/">더미</router-link> |
   </nav>
   <router-view />
 </template>

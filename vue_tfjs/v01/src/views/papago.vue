@@ -1,0 +1,72 @@
+<template>
+  <div>기업 API 파파고 번역기</div>
+  <button @click="check">console로 env 체크</button>
+  <hr />
+  <textarea
+    name=""
+    id=""
+    cols="30"
+    rows="10"
+    v-model="inData"
+    placeholder="번역할 내용을 입력하세요"
+  ></textarea>
+  = <button @click="getTrans">한/영 번역하기</button>
+  =>
+  <textarea
+    readonly
+    name=""
+    id=""
+    cols="30"
+    rows="10"
+    :value="trans"
+  ></textarea>
+</template>
+
+<script>
+// eslint-disable-next-line
+/* eslint-disable */
+import axios from 'axios' // 이 vue파일에서만 axios 사용하기 위해 script의 가장 위에 선언.
+export default {
+  name: 'app',
+  data() {
+    return {
+      inData: '',
+      trans: ''
+    }
+  },
+  methods: {
+    check: function () {
+      console.log(process.env.VUE_APP_nid)
+    },
+    getTrans: function () {
+      const cid = process.env.VUE_APP_nid
+      const csecret = process.env.VUE_APP_npw
+      const query = this.inData
+      const url = '/v1/papago/n2mt'
+      this.trans = '번역중...'
+      const frm = new FormData()
+      frm.append('source', 'ko') // 네이버가 정해놓은것
+      frm.append('target', 'en')
+      frm.append('text', query)
+
+      axios
+        .post(url, frm, {
+          // axios api 로그인
+          headers: {
+            // headers: axios 안에 정해진 설정
+            'Content-Type': 'application/json',
+            'X-Naver-Client-Id': cid,
+            'X-Naver-Client-Secret': csecret
+          }
+        })
+        .then((res) => {
+          const rst = res.data.message.result.translatedText
+          console.log(rst)
+          this.trans = rst
+        })
+    }
+  }
+}
+</script>
+
+<style></style>

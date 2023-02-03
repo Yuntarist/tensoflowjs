@@ -1,9 +1,9 @@
 <template>
-  <div>1.실시간 환율 API</div>
-  원화로 계산할 달러는 <input v-model="input" /> 달러
-  <div>현 시세 : 1달러에 {{ onedollar }} 원 입니다.</div>
+  <div>3.실시간 환율 API</div>
+  원화로 계산할 유로는 <input v-model="input" /> 유로
+  <div>현 시세 : 1 유로에 {{ oneeuro }} 원 입니다.</div>
   <br />
-  <div>입력하신 {{ input }} 달러 는 {{ result }}</div>
+  <div>입력하신 {{ input }} 유로는 {{ result }}</div>
 </template>
 
 <script>
@@ -15,7 +15,7 @@ export default {
     return {
       input: 0,
       // template에서 input v-model=input을 사용하였으니 data안의 return에서 선언을 해주어야한다.
-      onedollar: 0,
+      oneeuro: 0,
       // 마찬가지로 template에서 사용중이니 이곳에서 숫자타입으로 선언을 해줘야 한다.
       result: '숫자를 입력하세요.'
     }
@@ -23,18 +23,18 @@ export default {
   watch: {
     // input값이 변하는걸 감시하기 위해 methods 대신에 watch로 변경하였다.
     input: function () {
-      const dollar = this.input
-      if (isNaN(dollar)) {
+      const yen = this.input
+      if (isNaN(yen)) {
         this.result = '계산중...'
         return
       }
       const url =
-        'https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD'
+        'https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWEUR'
       fetch(url)
         .then((res) => res.json())
         .then((data) => {
-          this.onedollar = data[0].basePrice
-          const mydata = this.input * this.onedollar
+          this.oneeuro = data[0].basePrice
+          const mydata = this.input * this.oneeuro
           this.result = `${mydata.toLocaleString('ko-KR')} 원입니다.`
         })
     }

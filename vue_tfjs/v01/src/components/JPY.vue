@@ -1,6 +1,6 @@
 <template>
-  <div>실시간 환율 API</div>
-  원화로 계산할 달러는 <input v-model="input" /> 달러
+  <div>2.실시간 환율 API</div>
+  원화로 계산할 엔은 <input v-model="input" /> 엔
   <div>현 시세 : 1 엔에 {{ oneyen }} 원 입니다.</div>
   <br />
   <div>입력하신 {{ input }} 엔은 {{ result }}</div>
@@ -47,4 +47,19 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+/* <style scoped> */
+/* style 뒤에 scoped를 붙이면 해당 vue 파일에서만 스타일이 적용된다. */
+/*현재 밑에있는 스타일은 모든 컴포넌트의 input에 적용되고있다. */
+input {
+  width: 80px;
+  text-align: right;
+  border-style: none;
+  font-size: 1em;
+  border-bottom: 1px solid cadetblue;
+  border-bottom-color: 1px solid cadetblue;
+}
+input:focus {
+  outline: none;
+}
+</style>
