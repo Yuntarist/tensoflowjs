@@ -58,7 +58,7 @@ export default {
           'https://apis.data.go.kr/1352000/ODMS_COVID_04/callCovid04Api?ServiceKey=' +
           pkey +
           `&pageNo=1&numOfRows=500&apiType=JSON&std_day=${yesterday}&`
-      } else {
+      } else if (dataBox.value == '오늘') {
         // 아니면 오늘로 바꿈. 현재 select태그에 두개만 있으니까 else를 써도 상관없음.
         coronaurl =
           'https://apis.data.go.kr/1352000/ODMS_COVID_04/callCovid04Api?ServiceKey=' +
