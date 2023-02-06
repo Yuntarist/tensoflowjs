@@ -1,6 +1,6 @@
 <template>
   <div>공공 API 코로나 데이터</div>
-  <button @click="test()">console 환경변수 테스트</button>
+
   <hr />
   <select name="sel" id="selbox" v-model="local">
     <option value="서울">서울</option>
@@ -34,25 +34,45 @@ export default {
   },
   methods: {
     getcorona: function () {
-      // 공공 api 승인되는순간 숙제로 만들기
       const pkey = process.env.VUE_APP_pkey
 
-      // url 에 들어가는 날짜를 변경할 것
-      // if 문 사용해서 변경할것
+      let today1 = new Date()
+      let year1 = today1.getFullYear()
+      let month1 = today1.getMonth() + 1
+      let day1 = today1.getDate()
 
-      const coronaurl =
-        'https://apis.data.go.kr/1352000/ODMS_COVID_04/callCovid04Api?ServiceKey=' +
-        pkey +
-        '&pageNo=1&numOfRows=500&apiType=JSON&std_day=2023-02-06&'
-      this.corona = '데이터 로드 중 ...'
+      const today = `${year1}-0${month1}-0${day1}`
+      console.log(today) // 오늘 날짜 계산, url에 제대로 적용될 수 있도록 양식 바꿈.
+
+      const yesterday = `${year1}-0${month1}-0${day1 - 1}`
+      console.log(yesterday) // 어제 날짜 계산
+
+      const dateBox = document.getElementById('selbox2')
+      console.log(dateBox) // selbox2에 상수설정
+
+      let coronaurl = '' // const는 상수변수에 해당하므로 let으로 바꿔줌.
+
+      if (dateBox.value == '어제') {
+        // selbox2의 value가 어제면 조회 당시 날짜를 어제로 바꿈
+        coronaurl =
+          'https://apis.data.go.kr/1352000/ODMS_COVID_04/callCovid04Api?ServiceKey=' +
+          pkey +
+          `&pageNo=1&numOfRows=500&apiType=JSON&std_day=${yesterday}&`
+      } else {
+        // 아니면 오늘로 바꿈. 현재 select태그에 두개만 있으니까 else를 써도 상관없음.
+        coronaurl =
+          'https://apis.data.go.kr/1352000/ODMS_COVID_04/callCovid04Api?ServiceKey=' +
+          pkey +
+          `&pageNo=1&numOfRows=500&apiType=JSON&std_day=${today}&`
+      }
+      this.corona = '데이터 로드 중 ...' // 로딩중 일떄 나오는 문구
+
       fetch(coronaurl)
         .then((res) => res.json())
         .then((body) => {
           const city = body
           console.log(city)
 
-          // 이제 이걸 셀렉트박스에 if문으로 구현해서 넣을것
-          // 셀렉트 태그에 있는 도시들 (서울,부산,인천,울산,광주)
           const seoul = body.items[1].incDec
           const busan = body.items[16].incDec
           const incheon = body.items[2].incDec
@@ -90,17 +110,6 @@ export default {
           // this.corona = incheonincDec
           // this.corona = ulsanincDec
           // this.corona = gwangjuincDec
-
-          // let today1 = new Date()
-          // let year1 = today1.getFullYear()
-          // let month1 = today1.getMonth() + 1
-          // let day1 = today1.getDate()
-
-          // const today = `${year1}-${month1}-${day1}`
-          // console.log(today)
-
-          // 목표로 할 것 = select 태그를 이용하여 지역별 / 어제,오늘별 확진자 수 조회 기능을 구현해보기
-          // 현재 api 값이 230203자로만 고정되서 나오는 상황임.
         })
     }
   }
