@@ -40,7 +40,8 @@ export default {
       let year1 = today1.getFullYear()
       let month1 = today1.getMonth() + 1
       let day1 = today1.getDate()
-
+      // 오늘 날짜 구하는 함수들
+      // new Date로 현재시간구하고 거기서 연도/월/일만 뽑아서 today에 넣음.
       const today = `${year1}-0${month1}-0${day1}`
       console.log(today) // 오늘 날짜 계산, url에 제대로 적용될 수 있도록 양식 바꿈.
 

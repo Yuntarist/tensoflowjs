@@ -1,5 +1,5 @@
 <template>
-  <div>ex5</div>
+  <div>ex5 예제</div>
   <button @click="tf1">스캐터 플롯</button>
   <div id="plot1"></div>
 </template>

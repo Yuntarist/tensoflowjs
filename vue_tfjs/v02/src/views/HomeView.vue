@@ -10,6 +10,7 @@
     <button @click="e5()">예제 5</button>
     <button @click="e6()">예제 6</button>
     <button @click="e7()">예제 7</button>
+    <button @click="e8()">예제 8</button>
   </div>
   <hr />
   <component :is="choice"></component>
@@ -27,6 +28,7 @@ import ex4 from '@/components/ex4.vue'
 import ex5 from '@/components/ex5.vue'
 import ex6 from '@/components/ex6.vue'
 import ex7 from '@/components/ex7.vue'
+import ex8 from '@/components/ex8.vue'
 
 export default {
   name: 'HomeView',
@@ -60,6 +62,9 @@ export default {
     },
     e7: function () {
       this.choice = 'ex7'
+    },
+    e8: function () {
+      this.choice = 'ex8'
     }
   },
 
@@ -70,7 +75,8 @@ export default {
     ex4,
     ex5,
     ex6,
-    ex7
+    ex7,
+    ex8
   }
 }
 </script>

@@ -41,11 +41,10 @@ function chart() {
     ]
   }
   const options = {
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+    responsive: false, // 반응형 끄기
+    scales: {
+      y: {
+        beginAtZero: true
       }
     }
   }
