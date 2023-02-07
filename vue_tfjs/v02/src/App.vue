@@ -1,7 +1,8 @@
 <template>
   <nav>
     <router-link to="/">Chart</router-link> |
-    <router-link to="/cam">Cam</router-link>
+    <router-link to="/cam">Cam</router-link> |
+    <router-link to="/camtest">Cam test</router-link> |
   </nav>
   <router-view />
 </template>

@@ -2,12 +2,12 @@
   <div>
     <p>특강 part2. 딥러닝 프로젝트</p>
     <a href="https://www.tensorflow.org/js?h1=ko">tensorflowjs</a>
-    <button @click="tfc">console 체크</button>
+    <button @click="tfc">console 체크</button> |
     <button @click="e1()">예제 1</button>
     <button @click="e2()">예제 2</button>
     <button @click="e3()">예제 3</button>
     <button @click="e4()">예제 4</button>
-    <button @click="e5()">예제 5</button>
+    <button @click="e5()">예제 5</button> |
     <button @click="e6()">예제 6</button>
     <button @click="e7()">예제 7</button>
     <button @click="e8()">예제 8</button>
