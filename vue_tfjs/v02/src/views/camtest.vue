@@ -9,6 +9,7 @@
 <script>
 // eslint-disable-next-line
 /* eslint-disable */
+import * as tf from '@tensorflow/tfjs' // 텐서 플로우 모듈 불러오기
 export default {
   name: 'app',
   data() {
