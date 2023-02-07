@@ -12,7 +12,7 @@
         style="display: none"
       />
       <label id="img-box" for="input">+</label>
-      <img ref="img" v-if="imglink" src="imglink" alt="준비중" />
+      <img ref="img" v-if="imglink" :src="imglink" alt="준비중" />
       <hr />
       <div id="result1">{{ result1 }}</div>
       <button @click="predict()">분석</button>
