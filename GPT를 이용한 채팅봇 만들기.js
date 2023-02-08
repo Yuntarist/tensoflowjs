@@ -46,3 +46,6 @@ bot.on('message', async (msg) => {
   bot.sendMessage(chatId, botmessage?.text) // 봇에 sendMessage로 명령을 내림.
   // sendMessage엔 (botmessage의 text를 반환함.)
 })
+
+// 현재 studydata 객체에 모든 대화 내용을 넣는데 성공하였음
+// 근데 이 뒤로 뭐함?
