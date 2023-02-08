@@ -47,5 +47,5 @@ bot.on('message', async (msg) => {
   // sendMessage엔 (botmessage의 text를 반환함.)
 })
 
-// 현재 studydata 객체에 모든 대화 내용을 넣는데 성공하였음
+// 현재 230208:17:44 studydata 객체에 모든 대화 내용을 넣는데 성공하였음
 // 근데 이 뒤로 뭐함?
