@@ -10,7 +10,7 @@
 <script>
 // eslint-disable-next-line
 /* eslint-disable */
-
+import axios from 'axios'
 import * as tf from '@tensorflow/tfjs' // 텐서 플로우 모듈 불러오기
 import * as tfvis from '@tensorflow/tfjs-vis'
 export default {
@@ -45,7 +45,7 @@ export default {
     bun() {
       let son_key = document.getElementById('son_key')
       let kv = 175 // 구하고자 하는 키의 원래 값
-      let xt = tf.tensor(this.father)
+      let xt = tf.tensor(this.father) // 모듈이 안먹어 왜에에에에애에으앙
       let yt = tf.tensor(this.son)
 
       let X = tf.input({ shape: [1] })
@@ -53,7 +53,7 @@ export default {
       let model = tf.model({ inputs: X, outputs: Y })
       tfvis.show.modelSummary({ name: 'Model Summary' }, model)
       let compileParam = {
-        optimizer: tf.train.adam(), // train ??
+        optimizer: tf.train.adam(),
         loss: tf.losses.meanSquaredError
       } // 최적화의 loss 측정방법종류
       model.compile(compileParam)

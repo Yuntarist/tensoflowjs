@@ -14,7 +14,6 @@
       <label id="img-box" for="input">+</label>
       <img ref="img" v-if="imglink" :src="imglink" alt="준비중" />
       <hr />
-      <button @click="upIMG2()">분석</button>
       <button @click="predict()">분석2</button>
       <div id="result">{{ result }}</div>
       <div id="result1">{{ result1 }}</div>
