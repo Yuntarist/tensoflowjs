@@ -27,4 +27,5 @@ function kogptApi(prompt, max_tokens = 128, temperature, topP, n) {
   })
 }
 const prompt = '롯데자이언츠에 대한 평가'
+// prompt에 질문을 적으시오.
 kogptApi(prompt, 128, 0.8, 0.7, 1)
