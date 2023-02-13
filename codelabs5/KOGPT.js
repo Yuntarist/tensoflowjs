@@ -26,6 +26,6 @@ function kogptApi(prompt, max_tokens = 128, temperature, topP, n) {
     console.log(rst)
   })
 }
-const prompt = '롯데자이언츠에 대한 평가'
+const prompt = '새로운 OTT플랫폼의 이름을 추천해줘'
 // prompt에 질문을 적으시오.
 kogptApi(prompt, 128, 0.8, 0.7, 1)

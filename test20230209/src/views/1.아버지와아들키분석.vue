@@ -10,9 +10,10 @@
 <script>
 // eslint-disable-next-line
 /* eslint-disable */
-import axios from 'axios'
+
 import * as tf from '@tensorflow/tfjs' // 텐서 플로우 모듈 불러오기
 import * as tfvis from '@tensorflow/tfjs-vis'
+console.log(tf)
 export default {
   name: 'app',
   data() {
@@ -45,28 +46,28 @@ export default {
     bun() {
       let son_key = document.getElementById('son_key')
       let kv = 175 // 구하고자 하는 키의 원래 값
-      let xt = tf.tensor(this.father) // 모듈이 안먹어 왜에에에에애에으앙
-      let yt = tf.tensor(this.son)
+      let xt = this.$tf.tensor(this.father) // 모듈이 안먹어 왜에에에에애에으앙
+      let yt = this.$tf.tensor(this.son)
 
-      let X = tf.input({ shape: [1] })
-      let Y = tf.layers.dense({ units: 1 }).apply(X)
-      let model = tf.model({ inputs: X, outputs: Y })
-      tfvis.show.modelSummary({ name: 'Model Summary' }, model)
+      let X = this.$tf.input({ shape: [1] })
+      let Y = this.$tf.layers.dense({ units: 1 }).apply(X)
+      let model = this.$tf.model({ inputs: X, outputs: Y })
+      this.$tfvis.show.modelSummary({ name: 'Model Summary' }, model)
       let compileParam = {
-        optimizer: tf.train.adam(),
-        loss: tf.losses.meanSquaredError
+        optimizer: this.$tf.train.adam(),
+        loss: this.$tf.losses.meanSquaredError
       } // 최적화의 loss 측정방법종류
       model.compile(compileParam)
       model.summary()
       const fitParm = {
         epochs: 100,
-        callbacks: tfvis.show.fitCallbacks(
+        callbacks: this.$tfvis.show.fitCallbacks(
           { name: 'Training Performance' },
           ['loss', 'mse'],
           { height: 200, callbacks: ['onEpochEnd'] }
         )
       }
-      const my = tf.tensor([kv])
+      const my = this.$tf.tensor([kv])
       model.fit(xt, yt, fitParm).then((_) => {
         ;(async function () {
           let result = model.predict(my)
