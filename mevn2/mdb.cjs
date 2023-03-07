@@ -1,5 +1,5 @@
 // cjs는 커먼 자바 스크립트 파일
-const moongoose = require('moongoose')
+const mongoose = require('mongoose')
 const VSchema = require('./schema.cjs')
 const USER = process.env.mdbid
 const PWD = process.env.mdbpwd
@@ -9,7 +9,7 @@ const mongodbURL = `mongodb://${USER}:${PWD}@${HOST}/${DB}`
 // mongoose.set('useFindAndModify',false) // 버전 6부터 자동 관리라 제외됨
 mongoose.set('strictQuery', false) // 버전 6 부터 변경사항 넣기
 mongoose
-  .connect(mongodbURL, { useNewUrlParse: true })
+  .connect(mongodbURL, { useNewUrlParser: true })
   .then(() => console.log('MDB 접속완료!\n스키마 로드 완료!\n쿼리대기중...'))
   .catch((e) => console.error(e))
-module.exprots = VSchema
+module.exports = VSchema
