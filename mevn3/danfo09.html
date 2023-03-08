@@ -26,6 +26,13 @@
         /* 논리비교를 이용한 필터링 */
         // data.query(data['온도'].gt(20)).print()
         data.query(data['온도'].ge(20).and(data['판매량'].lt(44))).print()
+        /* 행 추가 */
+        const newRow = new dfd.DataFrame({
+          온도: [24, 25],
+          요일: ['금', '토'],
+          판매량: [48, 50]
+        })
+        data.append(newRow).print()
       })
     </script>
   </body>
