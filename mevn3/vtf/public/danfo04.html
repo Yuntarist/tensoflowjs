@@ -4,14 +4,21 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>danfo01내용</title>
+    <title>danfo04내용</title>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.2/lib/bundle.js"></script>
   </head>
   <body>
+    <a href="javascript:window.history.back();">뒤로가기</a>
     <script>
-      const s = new dfd.Series([1, 2, 3, 4, 5])
-      s.print()
+      let json_data = [
+        { A: 0.444, B: 4.222, C: -1.555, D: -1.111 },
+        { A: 0.544, B: 4.212, C: -1.655, D: -1.121 },
+        { A: 0.474, B: 4.122, C: -1.855, D: -1.112 },
+        { A: 0.434, B: 4.221, C: -1.585, D: -1.221 }
+      ]
+      let df = new dfd.DataFrame(json_data)
+      df.print()
     </script>
   </body>
 </html>

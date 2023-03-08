@@ -9,16 +9,21 @@
     <script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.2/lib/bundle.js"></script>
   </head>
   <body>
+    <a href="javascript:window.history.back();">뒤로가기</a>
     <script>
-      const tensor_arr = tf.tensor2d([
-        [12, 34, 2.2, 2],
-        [30, 30, 2.1, 7]
-      ])
-      const df = new dfd.DataFrame(tensor_arr, {
+      const arr_data = [
+        ['val1', 10, 1.2, 'test'],
+        ['val2', 20, 31.3, 'train'],
+        ['val3', 30, 4.14, 'test'],
+        ['val4', 40, 55.3, 'train']
+      ]
+      df = new dfd.DataFrame(arr_data, {
+        index: ['A1', 'A2', 'A3', 'A4'],
         columns: ['A1', 'A2', 'A3', 'A4']
       })
       df.print()
-      df.ctypes.print()
+      df.head(2).print()
+      df.tail(2).print()
     </script>
   </body>
 </html>
